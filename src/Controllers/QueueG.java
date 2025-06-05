@@ -1,12 +1,12 @@
 package Controllers;
 
 import java.util.EmptyStackException;
-
-import Models.Node;
+import Models.Persona;
+import Models.NodeGeneric;
 
 public class QueueG<T> {
-    private Node<T> primero; //head - front
-    private Node<T> ultimo; // back- rear - tail
+    private NodeGeneric<T> primero; //head - front
+    private NodeGeneric<T> ultimo; // back- rear - tail
     private int size;
 
 
@@ -17,7 +17,7 @@ public class QueueG<T> {
     }
 
     public void add(T value) {
-        Node<T> newNode = new Node<>(value);
+        NodeGeneric<T> newNode = new NodeGeneric<>(value);
         if (isEmpty()) {
             primero = newNode;
             ultimo = newNode;
@@ -31,42 +31,42 @@ public class QueueG<T> {
     public T remove() {
         if (isEmpty()) {
             throw new EmptyStackException();
+        }else{
+            T aux = primero.getValue();
+            primero = primero.getNext();
+            size--;
+            return aux;
         }
-        T aux = primero.getValue();
-        primero = primero.getNext();
-        size--;
-        return aux;
     }
 
-        public T findByName(String name) {
-        Node<T> current = primero;
-        while (current != null) {
-            if (current.getValue().getNombre().equals(name)) {
-                return current.getValue();
+    public Persona findByName(String name) {
+        NodeGeneric<T> aux = primero;
+        while (aux != null) {
+            Persona persona = (Persona) aux.getValue();
+            if (persona.getNombre().equals(name)) {
+                return persona;
             }
-            current = current.getNext();
+            aux = aux.getNext();
         }
         return null;
     }
 
-    public T deleteByName(String name) {
-        if (isEmpty()) {
-            return null;
-        }
+    public Persona deleteByName(String name) {
+        NodeGeneric<T> aux = primero;
+        NodeGeneric<T> anterior = null;
+        while (aux != null) {
+            Persona persona = (Persona) aux.getValue();
 
-        if (primero.getValue().getNombre().equals(name)) {
-            return remove();
-        }
-
-        Node<T> current = primero;
-        while (current.getNext() != null) {
-            if (current.getNext().getValue().getNombre().equals(name)) {
-                T valueToDelete = current.getNext().getValue();
-                current.setNext(current.getNext().getNext());
-                size--;
-                return valueToDelete;
+            if (persona.getNombre().equals(name)) {
+                if (anterior == null) {
+                    primero = aux.getNext();
+                } else {
+                    anterior.setNext(aux.getNext());
+                }
+                return persona;
             }
-            current = current.getNext();
+            anterior = aux;
+            aux = aux.getNext();
         }
         return null;
     }
@@ -74,8 +74,9 @@ public class QueueG<T> {
     public T peek() {
         if (isEmpty()) {
             throw new EmptyStackException();
+        }else{
+            return primero.getValue();
         }
-        return primero.getValue();
     }
 
     public int size(){
@@ -86,11 +87,10 @@ public class QueueG<T> {
         return primero == null;
     }
     public void printCola() {
-        Node<T> current = primero;
-        while (current != null) {
-            System.out.print(current.getValue() + " | ");
-            current = current.getNext();
+        NodeGeneric<T> aux = primero;
+        while (aux != null) {
+            System.out.print(aux.getValue() + " | ");
+            aux = aux.getNext();
         }
-        System.out.println();
     }
 }

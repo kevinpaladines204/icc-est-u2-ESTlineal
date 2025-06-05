@@ -1,7 +1,5 @@
 package Controllers;
 import java.util.EmptyStackException;
-
-import Models.Node;
 import Models.NodeGeneric;
 
 public class StackG<T> {
@@ -47,7 +45,6 @@ public class StackG<T> {
 
     public void printStack() {
         NodeGeneric<T> aux = top;
-        System.out.println("");
         while (aux != null) {
             System.out.print(aux.getValue() + " | ");
             aux = aux.getNext();

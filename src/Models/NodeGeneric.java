@@ -14,6 +14,10 @@ public class NodeGeneric <T> {
         return value;
     }
 
+    public void setValue(T value) {
+        this.value = value;
+    }
+
     public NodeGeneric<T> getNext() {
         return next;
     }
@@ -24,7 +28,6 @@ public class NodeGeneric <T> {
 
     @Override
     public String toString(){
-        return value.toString();
-    }
-    
+        return "NodeGeneric [value=" + value + "]";
+    }   
 }

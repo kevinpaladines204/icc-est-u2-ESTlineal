@@ -44,7 +44,6 @@ public class Stack {
 
     public void printStack(){
         Node aux = top;
-        System.out.println("");
         while (aux != null) {
             System.out.print(aux.getValue() + " | ");
             aux = aux.getNext();
